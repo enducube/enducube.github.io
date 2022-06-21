@@ -6,17 +6,14 @@ body {
 }
 
 
-.wrong {
-    background-color: rgb(188, 43, 43);
-}
-.right {
-    background-color: rgb(61, 205, 61);
-}
+
 
 .wordbutton {
     display: block;
     margin:auto;
     border-style: solid;
+    border-width: 2px;
+    border-color: #ddd;
     color: #ddd;
     border-radius: 15px;
     margin-top: 2px;
@@ -24,8 +21,14 @@ body {
     height: 20vh;
     width: 50vh;
     text-align: center;
+    background-color: #333;
 }
-
+.wrong {
+    background-color: rgb(188, 43, 43);
+}
+.right {
+    background-color: rgb(61, 205, 61);
+}
 
 #buttonlist {
     overflow-y: scroll;
