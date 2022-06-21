@@ -13,7 +13,8 @@ function loadFile(filePath) {
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
 correctword = words[round(Math.random() * words.length)];
-
+guessesleft = 10;
+console.log(correctword);
 words.forEach(element => {
   var coolbutton = document.createElement("button");
   coolbutton.classList.add("wordbutton");
@@ -23,10 +24,20 @@ words.forEach(element => {
 });
 
 document.getElementById("buttonlist").addEventListener("click", function(e){
-  var isbutton = e.target.nodeName === "BUTTON";
-  if (!isbutton && !e.target.classList.includes("done")) {
-    return;
+  if (guessesleft > 0) {
+    var isbutton = e.target.nodeName === "BUTTON";
+    if (!isbutton && !e.target.classList.includes("done")) {
+      return;
+    }
+    if (e.target.innerHTML != correctword) {
+      e.target.classList.add("wrong");
+    }
+    else if (e.target.innerHTML == correctword) {
+      e.target.classList.add("right");
+      console.log("win");
+    }
   }
-  e.target.classList.add("done");
-  console.log(e.target.innerHTML);
+  
+  
+  //console.log(e.target.innerHTML);
 });

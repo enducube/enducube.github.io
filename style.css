@@ -15,6 +15,9 @@ c:hover {
 .wrong {
     background-color: red;
 }
+.right {
+    background-color: limegreen;
+}
 
 .wordbutton {
     display: block;
