@@ -1,7 +1,7 @@
 //wooderl cool
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
-win = false
+win = false;
 guessesleft = 10;
 
 var today = new Date();
@@ -47,12 +47,13 @@ words.forEach(element => {
   coolbutton.classList.add("wordbutton");
   var t = document.createTextNode(element);
   coolbutton.appendChild(t);
-    document.getElementById("buttonlist").appendChild(coolbutton);
+  document.getElementById("buttonlist").appendChild(coolbutton);
 });
 
 document.getElementById("buttonlist").addEventListener("click", function(e){
   if (guessesleft > 0 && !e.target.classList.contains("wrong") && !win) {
     guessesleft -= 1;
+    document.getElementById("guessesleft").innerHTML = "guesses left: " + guessesleft.toString();
     var isbutton = e.target.nodeName === "BUTTON";
     if (!isbutton && !e.target.classList.contains("done")) {
       return;
@@ -61,19 +62,46 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
       e.target.classList.add("wrong");
       if (guessesleft < 1) {
         var flash = document.createElement("div");
+        var flashspan = document.createElement("span");
         flash.classList.add("flashthing");
-        flash.appendChild(document.createTextNode(words[wordindex]));
-        document.body.appendChild()
+        flash.appendChild(flashspan);
+        flashspan.appendChild(document.createTextNode(words[wordindex]));
+        document.body.appendChild(flash);
+        losses += 1;
+        save();
       }
     }
     else if (stringToHashConversion(e.target.innerHTML) == correctword) {
       e.target.classList.add("right");
       console.log("win");
       win = true;
+      wins += 1;
+      save();
     }
-    document.getElementById("guessesleft").innerHTML = "guesses left: " + guessesleft.toString();
+    
   }
-  
-  
-  //console.log(e.target.innerHTML);
 });
+
+
+
+// saving stuff
+
+var wins = 0
+var losses = 0
+
+function save() {
+  document.cookie = "wins="+wins+";"+"losses="+losses+";";
+
+}
+
+function load() {
+  if (document.cookie != null) {
+    var loadedthing = document.cookie;
+    var splitthing = loadedthing.split(";");
+    wins = splitthing[0].split("=")[1];
+    wins = splitthing[1].split("=")[1];
+  }
+ 
+}
+
+load();

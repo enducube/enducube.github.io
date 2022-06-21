@@ -5,7 +5,21 @@ body {
     margin: 0;
 }
 
+.flashthing {
+    position:absolute;
+    left: 0;
+    right: 0;
 
+    text-align: center;
+    background-color: #eee;
+    top:5%;
+    margin: auto;
+    width: 40px;
+    height: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    color: #222;
+}
 
 
 .wordbutton {
@@ -15,7 +29,7 @@ body {
     border-width: 2px;
     border-color: #ddd;
     color: #ddd;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-top: 2px;
     margin-bottom: 2px;
     height: 15vh;
@@ -39,3 +53,19 @@ body {
     background-color: #333;
 }
 
+
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #fff0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
