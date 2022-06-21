@@ -12,6 +12,7 @@ function loadFile(filePath) {
   }
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
-words.array.forEach(element => {
+console.log(words);
+words.forEach(element => {
     document.getElementsByName("body").appendChild("<p>"+element+"</p>");
 });
