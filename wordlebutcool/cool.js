@@ -12,7 +12,19 @@ function loadFile(filePath) {
   }
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
-console.log(words);
 words.forEach(element => {
-    document.getElementsByName("body").appendChild("<p>"+element+"</p>");
+  var coolbutton = document.createElement("button");
+  coolbutton.classList.add("wordbutton");
+  var t = document.createTextNode(element);
+  coolbutton.appendChild(t);
+    document.getElementById("buttonlist").appendChild(b);
+});
+
+document.getElementById("buttonlist").addEventListener("click", function(e){
+  var isbutton = e.target.nodeName === "BUTTON";
+  if (!isbutton && !e.target.classList.includes("done")) {
+    return;
+  }
+  e.target.classList.add("done");
+  console.log(e.target.innerHTML);
 });
