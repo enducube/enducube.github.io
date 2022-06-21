@@ -17,7 +17,7 @@ words.forEach(element => {
   coolbutton.classList.add("wordbutton");
   var t = document.createTextNode(element);
   coolbutton.appendChild(t);
-    document.getElementById("buttonlist").appendChild(b);
+    document.getElementById("buttonlist").appendChild(coolbutton);
 });
 
 document.getElementById("buttonlist").addEventListener("click", function(e){
