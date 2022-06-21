@@ -12,7 +12,7 @@ function loadFile(filePath) {
   }
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
-correctword = words[round(Math.random() * words.length)];
+correctword = words[Math.round(Math.random() * words.length)];
 guessesleft = 10;
 console.log(correctword);
 words.forEach(element => {
