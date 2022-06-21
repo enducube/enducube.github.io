@@ -34,10 +34,10 @@ words.forEach(element => {
 });
 
 document.getElementById("buttonlist").addEventListener("click", function(e){
-  if (guessesleft > 0 && !e.target.classList.includes("wrong")) {
+  if (guessesleft > 0 && !e.target.classList.contains("wrong")) {
     guessesleft -= 1;
     var isbutton = e.target.nodeName === "BUTTON";
-    if (!isbutton && !e.target.classList.includes("done")) {
+    if (!isbutton && !e.target.classList.contains("done")) {
       return;
     }
     if (stringToHashConversion(e.target.innerHTML) != correctword) {
