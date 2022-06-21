@@ -3,7 +3,6 @@ body {
     background-color: #222;
     color: #ddd;
     padding-left: 15px;
-    overflow: hidden;
 }
 c {
     display: inline-block;
@@ -27,7 +26,7 @@ c:hover {
 
 #buttonlist {
     overflow-y: scroll;
-    height: 128px;
+    height: 256px;
     width: 100%;
 }
 

@@ -25,6 +25,7 @@ words.forEach(element => {
 
 document.getElementById("buttonlist").addEventListener("click", function(e){
   if (guessesleft > 0) {
+    guessesleft -= 1;
     var isbutton = e.target.nodeName === "BUTTON";
     if (!isbutton && !e.target.classList.includes("done")) {
       return;
@@ -36,7 +37,7 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
       e.target.classList.add("right");
       console.log("win");
     }
-    document.getElementById("guessesleft").innerHTML = guessesleft;
+    document.getElementById("guessesleft").innerHTML = "guesses left: " + guessesleft.toString();
   }
   
   
