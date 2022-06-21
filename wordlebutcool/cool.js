@@ -22,7 +22,8 @@ function loadFile(filePath) {
      }
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
-correctword = stringToHashConversion(words[Math.round(Math.random() * words.length)]);
+wordindex = Math.round(Math.random()*words.length)
+correctword = stringToHashConversion(words[wordindex]);
 guessesleft = 10;
 words.forEach(element => {
   var coolbutton = document.createElement("button");
@@ -33,7 +34,7 @@ words.forEach(element => {
 });
 
 document.getElementById("buttonlist").addEventListener("click", function(e){
-  if (guessesleft > 0) {
+  if (guessesleft > 0 && !e.target.classList.includes("wrong")) {
     guessesleft -= 1;
     var isbutton = e.target.nodeName === "BUTTON";
     if (!isbutton && !e.target.classList.includes("done")) {

@@ -11,22 +11,3 @@ c {
 c:hover {
     transform: rotate(15deg);
 }
-
-.wrong {
-    background-color: red;
-}
-.right {
-    background-color: limegreen;
-}
-
-.wordbutton {
-    display: block;
-}
-
-
-#buttonlist {
-    overflow-y: scroll;
-    height: 256px;
-    width: 100%;
-}
-
