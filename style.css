@@ -11,3 +11,16 @@ c {
 c:hover {
     transform: rotate(15deg);
 }
+
+.wrong {
+    background-color: red;
+}
+
+.wordbutton {
+    display: block;
+}
+
+
+#buttonlist {
+    overflow-y: scroll;
+}

@@ -12,6 +12,8 @@ function loadFile(filePath) {
   }
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
+correctword = words[round(Math.random() * words.length)];
+
 words.forEach(element => {
   var coolbutton = document.createElement("button");
   coolbutton.classList.add("wordbutton");
