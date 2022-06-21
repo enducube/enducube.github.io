@@ -1,5 +1,25 @@
 //wooderl cool
 
+words = loadFile("wordlebutcool/words.txt").split("\n");
+win = false
+guessesleft = 10;
+
+var today = new Date();
+var todaynumberseed = today.getFullYear()*today.getMonth()*today.getDate();
+console.log(todaynumberseed);
+function mulberry32(a) {
+    return function() {
+      var t = a += 0x6D2B79F5;
+      t = Math.imul(t ^ t >>> 15, t | 1);
+      t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    }
+}
+var rand = mulberry32(todaynumberseed);
+wordindex = Math.round(rand()*words.length);
+correctword = stringToHashConversion(words[wordindex]);
+
+
 function loadFile(filePath) {
     var result = null;
     var xmlhttp = new XMLHttpRequest();
@@ -21,10 +41,7 @@ function loadFile(filePath) {
     return hashVal;
      }
 
-words = loadFile("wordlebutcool/words.txt").split("\n");
-wordindex = Math.round(Math.random()*words.length)
-correctword = stringToHashConversion(words[wordindex]);
-guessesleft = 10;
+
 words.forEach(element => {
   var coolbutton = document.createElement("button");
   coolbutton.classList.add("wordbutton");
@@ -34,7 +51,7 @@ words.forEach(element => {
 });
 
 document.getElementById("buttonlist").addEventListener("click", function(e){
-  if (guessesleft > 0 && !e.target.classList.contains("wrong")) {
+  if (guessesleft > 0 && !e.target.classList.contains("wrong") && !win) {
     guessesleft -= 1;
     var isbutton = e.target.nodeName === "BUTTON";
     if (!isbutton && !e.target.classList.contains("done")) {
@@ -42,10 +59,17 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
     }
     if (stringToHashConversion(e.target.innerHTML) != correctword) {
       e.target.classList.add("wrong");
+      if (guessesleft < 1) {
+        var flash = document.createElement("div");
+        flash.classList.add("flashthing");
+        flash.appendChild(document.createTextNode(words[wordindex]));
+        document.body.appendChild()
+      }
     }
     else if (stringToHashConversion(e.target.innerHTML) == correctword) {
       e.target.classList.add("right");
       console.log("win");
+      win = true;
     }
     document.getElementById("guessesleft").innerHTML = "guesses left: " + guessesleft.toString();
   }
