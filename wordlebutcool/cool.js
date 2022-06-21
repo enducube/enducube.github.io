@@ -36,6 +36,7 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
       e.target.classList.add("right");
       console.log("win");
     }
+    document.getElementById("guessesleft").innerHTML = guessesleft;
   }
   
   
