@@ -10,11 +10,20 @@ function loadFile(filePath) {
     }
     return result;
   }
+  function stringToHashConversion(string) {
+    var hashVal = 0;
+    if (string.length == 0) return hashVal;
+    for (i = 0; i < string.length; i++) {
+    char = string.charCodeAt(i);
+    hashVal = ((hashVal << 5) - hashVal) + char;
+    hashVal = hashVal & hashVal;
+       }
+    return hashVal;
+     }
 
 words = loadFile("wordlebutcool/words.txt").split("\n");
-correctword = words[Math.round(Math.random() * words.length)];
+correctword = stringToHashConversion(words[Math.round(Math.random() * words.length)]);
 guessesleft = 10;
-console.log(correctword);
 words.forEach(element => {
   var coolbutton = document.createElement("button");
   coolbutton.classList.add("wordbutton");
@@ -30,10 +39,10 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
     if (!isbutton && !e.target.classList.includes("done")) {
       return;
     }
-    if (e.target.innerHTML != correctword) {
+    if (stringToHashConversion(e.target.innerHTML) != correctword) {
       e.target.classList.add("wrong");
     }
-    else if (e.target.innerHTML == correctword) {
+    else if (stringToHashConversion(e.target.innerHTML) == correctword) {
       e.target.classList.add("right");
       console.log("win");
     }
