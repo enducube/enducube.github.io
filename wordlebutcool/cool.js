@@ -119,7 +119,7 @@ function share() {
   if (navigator.userAgentData.mobile) {
     navigator.share({text: sharestring});
   } else {
-    await navigator.clipboard.writeText(sharestring);
+    navigator.clipboard.writeText(sharestring);
     alert("copied to clipboard");
   }
 }
