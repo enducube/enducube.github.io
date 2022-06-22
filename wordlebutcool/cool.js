@@ -103,20 +103,10 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
 
 
 // sharing results
-const deviceType = () => {
-  const ua = navigator.userAgent;
-  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-      return "tablet";
-  }
-  else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-      return "mobile";
-  }
-  return "desktop";
-};
 
 function share() {
   sharestring = "totally real wordle "+wordlenumber.toString()+" "+(10-guessesleft)+"/10\n"
-  if (guesses == 10 && !win) {
+  if (!win) {
     sharestring = "totally real wordle "+wordlenumber.toString()+" X/10\n"
   }
     guesses.forEach(function(e) {
@@ -126,11 +116,10 @@ function share() {
         sharestring += wrongemoji;
       }
     });
-    console.log(sharestring);
-  if (deviceType == "mobile" || deviceType == "tablet") {
+  if (navigator.userAgentData.mobile) {
     navigator.share({text: sharestring});
   } else {
-    navigator.clipboard.writeText(sharestring);
+    await navigator.clipboard.writeText(sharestring);
     alert("copied to clipboard");
   }
 }
