@@ -176,6 +176,6 @@ if (guessesleft < 1) {
 }
 setInterval(function() {
   today = new Date();
-  document.getElementById("timeleft").innerHTML = (24-today.getHours()) + ":" + ("0"+(60-today.getMinutes())).slice(-2) + ":" + ("0"+(60-today.getSeconds())).slice(-2);
+  document.getElementById("timeleft").innerHTML = (23-today.getHours()) + ":" + ("0"+(60-today.getMinutes())).slice(-2) + ":" + ("0"+(60-today.getSeconds())).slice(-2);
   }, 1000);
-document.getElementById("timeleft").innerHTML = (24-today.getHours()) + ":" + (60-today.getMinutes()) + ":" + (64-today.getSeconds());
+document.getElementById("timeleft").innerHTML = (23-today.getHours()) + ":" + (60-today.getMinutes()) + ":" + (64-today.getSeconds());
