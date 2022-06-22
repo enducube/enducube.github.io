@@ -21,6 +21,41 @@ body {
     color: #222;
 }
 
+#statistics {
+    position:absolute;
+    left: 0;
+    right: 0;
+
+    text-align: center;
+    background-color: #444;
+    top:15vh;
+    margin: auto;
+    width: 30vh;
+    height: 70vh;
+    padding: 5px;
+    border-radius: 10px;
+    color: #eee;
+}
+a.closebutton {
+color: #eee;
+position:inherit;
+text-align: right;
+margin: auto;
+right: 10%;
+font-size: x-large;
+}
+a.sharebutton {
+    color: #eee;
+    padding: 5px;
+    position:inherit;
+    text-align: right;
+    margin: auto;
+    right: 10%;
+    font-size: x-large;
+    background-color:rgb(61, 205, 61);
+    border-radius: 10px;
+    }
+
 
 .wordbutton {
     display: block;

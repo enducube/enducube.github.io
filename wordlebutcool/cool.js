@@ -1,12 +1,21 @@
 //wooderl cool
 
-words = loadFile("wordlebutcool/words.txt").split("\n");
-win = false;
-guessesleft = 10;
+const words = loadFile("wordlebutcool/words.txt").split("\n");
+var win = false;
+var guessesleft = 10;
+
+var wins = 0;
+var losses = 0;
+var guesses = [];
+var sharestring = "";
+const wrongemoji = "\uD83D\uDFE5";
+const rightemoji = "\uD83D\uDFE9";
 
 var today = new Date();
 var todaynumberseed = today.getFullYear()*today.getMonth()*today.getDate();
-console.log(todaynumberseed);
+var wordlenumber = ((today.getFullYear()*365)+(today.getMonth()*30)+today.getDate())-738201;
+
+
 function mulberry32(a) {
     return function() {
       var t = a += 0x6D2B79F5;
@@ -59,6 +68,7 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
       return;
     }
     if (stringToHashConversion(e.target.innerHTML) != correctword) {
+      guesses.push(words.indexOf(e.target.innerHTML));
       e.target.classList.add("wrong");
       if (guessesleft < 1) {
         var flash = document.createElement("div");
@@ -68,15 +78,22 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
         flashspan.appendChild(document.createTextNode(words[wordindex]));
         document.body.appendChild(flash);
         losses += 1;
-        save();
+        document.getElementById("wins").innerHTML = wins;
+        document.getElementById("losses").innerHTML = losses;
+        document.getElementById('statistics').style.display = 'block';
       }
+      save();
     }
     else if (stringToHashConversion(e.target.innerHTML) == correctword) {
       e.target.classList.add("right");
+      guesses.push(words.indexOf(e.target.innerHTML));
       console.log("win");
       win = true;
       wins += 1;
+      document.getElementById("wins").innerHTML = wins;
+      document.getElementById("losses").innerHTML = losses;
       save();
+      document.getElementById('statistics').style.display = 'block';
     }
     
   }
@@ -84,24 +101,92 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
 
 
 
-// saving stuff
 
-var wins = 0
-var losses = 0
+// sharing results
+const deviceType = () => {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return "tablet";
+  }
+  else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+      return "mobile";
+  }
+  return "desktop";
+};
 
-function save() {
-  document.cookie = "wins="+wins+";"+"losses="+losses+";";
-
+function share() {
+  sharestring = "totally real wordle "+wordlenumber.toString()+" "+(10-guessesleft)+"/10\n"
+  if (guesses == 10 && !win) {
+    sharestring = "totally real wordle "+wordlenumber.toString()+" X/10\n"
+  }
+    guesses.forEach(function(e) {
+      if (e == wordindex) {
+        sharestring += rightemoji;
+      } else {
+        sharestring += wrongemoji;
+      }
+    });
+    console.log(sharestring);
+  if (deviceType == "mobile" || deviceType == "tablet") {
+    navigator.share({text: sharestring});
+  } else {
+    navigator.clipboard.writeText(sharestring);
+    alert("copied to clipboard");
+  }
 }
 
+
+// saving stuff
+
 function load() {
-  if (document.cookie != null) {
-    var loadedthing = document.cookie;
+  if (document.cookie != "") {
+    var loadedthing = decodeURIComponent(document.cookie);
     var splitthing = loadedthing.split(";");
-    wins = splitthing[0].split("=")[1];
-    wins = splitthing[1].split("=")[1];
+    wins = parseInt(splitthing[0].split("=")[1]);
+    losses = parseInt(splitthing[1].split("=")[1]);
+    guesses = splitthing[2].split("=")[1].split(",");
+    if (todaynumberseed != splitthing[3].split("=")[1]) {
+      guesses = [];
+    }
+    guessesleft = 10 - (guesses.length);
+    if (guesses != []) {
+      var wordbuttons = Array.from(document.getElementsByClassName("wordbutton"));
+      guesses.forEach(function(e) {
+        if (e == wordindex) {
+          wordbuttons[e].classList.add("right");
+          win = true;
+          document.getElementById('statistics').style.display = 'block';
+        } else {
+          wordbuttons[e].classList.add("wrong");
+        }
+        
+      });
+    }
+
+   
+    document.getElementById("guessesleft").innerHTML = "guesses left: " + guessesleft.toString();
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("losses").innerHTML = losses;
   }
  
 }
+function save() {
+  document.cookie = encodeURIComponent("wins="+wins+";losses="+losses+";guesses="+guesses.toString()+";lastplayedseed="+todaynumberseed+";");
+  //console.log(decodeURIComponent(document.cookie));
+}
 
 load();
+if (guessesleft < 1) {
+  document.getElementById('statistics').style.display = 'block';
+  var flash = document.createElement("div");
+  var flashspan = document.createElement("span");
+  flash.classList.add("flashthing");
+  flash.appendChild(flashspan);
+  flashspan.appendChild(document.createTextNode(words[wordindex]));
+  document.body.appendChild(flash);
+}
+setInterval(function() {
+  today = new Date();
+  document.getElementById("timeleft").innerHTML = (24-today.getHours()) + ":" + ("0"+(60-today.getMinutes())).slice(-2) + ":" + ("0"+(60-today.getSeconds())).slice(-2);
+  }, 1000);
+document.getElementById("timeleft").innerHTML = (24-today.getHours()) + ":" + (60-today.getMinutes()) + ":" + (64-today.getSeconds());
