@@ -103,7 +103,7 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
 
 const btn = document.getElementById('sharebutton');
 // sharing results
-btn.addEventListener('click', async () {
+btn.addEventListener('click', async () => {
   sharestring = "totally real wordle "+wordlenumber.toString()+" "+(10-guessesleft)+"/10\n"
   if (!win) {
     sharestring = "totally real wordle "+wordlenumber.toString()+" X/10\n"
