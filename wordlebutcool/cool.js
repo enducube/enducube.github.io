@@ -103,9 +103,7 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
 
 const btn = document.getElementById('sharebutton');
 // sharing results
-btn.addEventListener('click', share);
-
-function share() {
+btn.addEventListener('click', async () {
   sharestring = "totally real wordle "+wordlenumber.toString()+" "+(10-guessesleft)+"/10\n"
   if (!win) {
     sharestring = "totally real wordle "+wordlenumber.toString()+" X/10\n"
@@ -118,14 +116,14 @@ function share() {
       }
     });
   if (navigator.share) {
-    navigator.share({text: sharestring})
+    await navigator.share({text: sharestring})
       .then(() => console.log('Successful share'))
       .catch((error) => console.log('Error sharing', error));
   } else {
-    navigator.clipboard.writeText(sharestring);
+    await navigator.clipboard.writeText(sharestring);
     alert("copied to clipboard");
   }
-}
+});
 
 
 // saving stuff
