@@ -101,8 +101,9 @@ document.getElementById("buttonlist").addEventListener("click", function(e){
 
 
 
-
+const btn = document.getElementById('sharebutton');
 // sharing results
+btn.addEventListener('click', share);
 
 function share() {
   sharestring = "totally real wordle "+wordlenumber.toString()+" "+(10-guessesleft)+"/10\n"
@@ -116,8 +117,10 @@ function share() {
         sharestring += wrongemoji;
       }
     });
-  if (navigator.userAgentData.mobile) {
-    navigator.share({text: sharestring});
+  if (navigator.share) {
+    navigator.share({text: sharestring})
+      .then(() => console.log('Successful share'))
+      .catch((error) => console.log('Error sharing', error));
   } else {
     navigator.clipboard.writeText(sharestring);
     alert("copied to clipboard");
@@ -159,6 +162,7 @@ function load() {
   }
  
 }
+
 function save() {
   document.cookie = encodeURIComponent("wins="+wins+";losses="+losses+";guesses="+guesses.toString()+";lastplayedseed="+todaynumberseed+";");
   //console.log(decodeURIComponent(document.cookie));
