@@ -115,7 +115,7 @@ btn.addEventListener('click', async () => {
         sharestring += wrongemoji;
       }
     });
-  if (navigator.share) {
+  if (navigator.share  && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     await navigator.share({text: sharestring})
       .then(() => console.log('Successful share'))
       .catch((error) => console.log('Error sharing', error));
