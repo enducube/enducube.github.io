@@ -6,7 +6,7 @@ function save() {
     var saveGame = {
         money: money,
     }
-    document.cookie = "save="+JSON.stringify(saveGame)+
+    document.cookie = "save="+JSON.stringify(saveGame)+";"
 }
 
 function load(){
